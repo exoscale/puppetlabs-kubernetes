@@ -44,7 +44,24 @@ spec:
     - --authorization-mode=RBAC
     <%- end -%>
     - --advertise-address=<%= @kube_api_advertise_address  %>
-    - --etcd-servers=http://127.0.0.1:2379
+    <%- if @etcd_servers -%>
+    --etcd-servers=<%= @etcd_servers  %>
+    <%- else -%>
+    - --etcd-servers=http://127.0.0.1:2379    
+    <%- end -%>
+    
+    <%- if @etcd_cafile -%>
+    --etcd-cafile=<%= @etcd_cafile  %>
+    <%- end -%>
+    <%- if @etcd_certfile -%>
+    --etcd-certfile=<%= @etcd_certfile  %>
+    <%- end -%>
+    <%- if @etcd_keyfile -%>
+    --etcd-keyfile=<%= @etcd_keyfile  %>
+    <%- end -%>
+    <%- if @etcd_prefix -%>
+    --etcd-prefix=<%= @etcd_prefix  %>
+    <%- end -%>
 <% @apiserver_extra_arguments.each do |arg| -%>
     - <%= arg %>
 <% end -%>
